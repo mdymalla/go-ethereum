@@ -218,8 +218,15 @@ func (t *Type) isArray() bool {
 func (t *Type) typeName() string {
 	re := regexp.MustCompile(`\[\d*\]`)
 
-	if strings.HasSuffix(t.Type, "[]") {
-		return re.ReplaceAllString(t.Type, "")
+	// print input string
+	fmt.Println("\nInput string: ", t.Type)
+
+	if strings.Contains(t.Type, "[") {
+		replaced := re.ReplaceAllString(t.Type, "")
+		fmt.Println("\noutput string: ", replaced)
+		return replaced
+	} else {
+		fmt.Println("\nno changes required to output string")
 	}
 
 	return t.Type
