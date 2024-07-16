@@ -216,9 +216,12 @@ func (t *Type) isArray() bool {
 // typeName returns the canonical name of the type. If the type is 'Person[]', then
 // this method returns 'Person'
 func (t *Type) typeName() string {
+	re := regexp.MustCompile(`\[\d*\]`)
+
 	if strings.HasSuffix(t.Type, "[]") {
-		return strings.TrimSuffix(t.Type, "[]")
+		return re.ReplaceAllString(t.Type, "")
 	}
+
 	return t.Type
 }
 
