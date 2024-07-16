@@ -210,7 +210,7 @@ type Type struct {
 }
 
 func (t *Type) isArray() bool {
-	return strings.HasSuffix(t.Type, "[]")
+	return strings.Contains(t.Type, "[")
 }
 
 // typeName returns the canonical name of the type. If the type is 'Person[]', then
@@ -271,6 +271,8 @@ func TypedDataAndHash(typedData TypedData) ([]byte, string, error) {
 
 // HashStruct generates a keccak256 hash of the encoding of the provided data
 func (typedData *TypedData) HashStruct(primaryType string, data TypedDataMessage) (hexutil.Bytes, error) {
+	fmt.Println("\nrunning hash struct")
+
 	encodedData, err := typedData.EncodeData(primaryType, data, 1)
 	if err != nil {
 		return nil, err
