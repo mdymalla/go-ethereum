@@ -216,20 +216,22 @@ func (t *Type) isArray() bool {
 // typeName returns the canonical name of the type. If the type is 'Person[]', then
 // this method returns 'Person'
 func (t *Type) typeName() string {
-	re := regexp.MustCompile(`\[\d*\]`)
+	// re := regexp.MustCompile(`\[\d*\]`)
 
 	// print input string
 	fmt.Println("\nInput string: ", t.Type)
 
-	if strings.Contains(t.Type, "[") {
-		replaced := re.ReplaceAllString(t.Type, "")
-		fmt.Println("\noutput string: ", replaced)
-		return replaced
-	} else {
-		fmt.Println("\nno changes required to output string")
-	}
+	return "test"
 
-	return t.Type
+	// if strings.Contains(t.Type, "[") {
+	// 	replaced := re.ReplaceAllString(t.Type, "")
+	// 	fmt.Println("\noutput string: ", replaced)
+	// 	return replaced
+	// } else {
+	// 	fmt.Println("\nno changes required to output string")
+	// }
+
+	// return t.Type
 }
 
 type Types map[string][]Type
