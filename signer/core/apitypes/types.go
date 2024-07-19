@@ -366,6 +366,19 @@ func (typedData *TypedData) EncodeData(primaryType string, data map[string]inter
 			parsedType := strings.Split(encType, "[")[0]
 			for _, item := range arrayValue {
 				if typedData.Types[parsedType] != nil {
+					if reflect.TypeOf(item).Kind() == reflect.Slice ||
+						reflect.TypeOf(item).Kind() == reflect.Array {
+						// If the item is a slice or array, we need to recursively encode it
+						// This is because the item is a nested array, which is not supported by the current implementation
+						// We will need to flatten the array to a single level
+						// For example, if the item is [[1, 2], [3, 4]], we will flatten it to [1, 2, 3, 4]
+						// This is done by converting the item to a slice of interface{}, then recursively encoding it
+						// The encoded data will then be appended to the arrayBuffer
+						sliceValue := reflect.ValueOf(item)
+						for i := 0; i < sliceValue.Len(); i++ {
+							item = sliceValue.Index(i).Interface()
+						}
+					}
 					mapValue, ok := item.(map[string]interface{})
 					if !ok {
 						return nil, dataMismatchError(parsedType, item)
