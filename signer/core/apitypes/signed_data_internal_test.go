@@ -18,11 +18,14 @@ package apitypes
 
 import (
 	"bytes"
+	"fmt"
 	"math/big"
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/ethereum/go-ethereum/crypto"
+
 	"github.com/ethereum/go-ethereum/common/math"
 )
 
@@ -247,26 +250,247 @@ func TestTypedDataArrayValidate(t *testing.T) {
 	typedData := TypedData{
 		Types: Types{
 			"BulkOrder": []Type{
-				// Should be able to accept fixed size arrays
-				{Name: "tree", Type: "OrderComponents[2][2]"},
+				{
+					Name: "tree",
+					Type: "OrderComponents[2][2]",
+				},
 			},
 			"OrderComponents": []Type{
-				{Name: "offerer", Type: "address"},
-				{Name: "amount", Type: "uint8"},
+				{
+					Name: "offerer",
+					Type: "address",
+				},
+				{
+					Name: "zone",
+					Type: "address",
+				},
+				{
+					Name: "offer",
+					Type: "OfferItem[]",
+				},
+				{
+					Name: "consideration",
+					Type: "ConsiderationItem[]",
+				},
+				{
+					Name: "orderType",
+					Type: "uint8",
+				},
+				{
+					Name: "startTime",
+					Type: "uint256",
+				},
+				{
+					Name: "endTime",
+					Type: "uint256",
+				},
+				{
+					Name: "zoneHash",
+					Type: "bytes32",
+				},
+				{
+					Name: "salt",
+					Type: "uint256",
+				},
+				{
+					Name: "conduitKey",
+					Type: "bytes32",
+				},
+				{
+					Name: "counter",
+					Type: "uint256",
+				},
+			},
+			"OfferItem": []Type{
+				{
+					Name: "itemType",
+					Type: "uint8",
+				},
+				{
+					Name: "token",
+					Type: "address",
+				},
+				{
+					Name: "identifierOrCriteria",
+					Type: "uint256",
+				},
+				{
+					Name: "startAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "endAmount",
+					Type: "uint256",
+				},
+			},
+			"ConsiderationItem": []Type{
+				{
+					Name: "itemType",
+					Type: "uint8",
+				},
+				{
+					Name: "token",
+					Type: "address",
+				},
+				{
+					Name: "identifierOrCriteria",
+					Type: "uint256",
+				},
+				{
+					Name: "startAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "endAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "recipient",
+					Type: "address",
+				},
 			},
 			"EIP712Domain": []Type{
 				{Name: "name", Type: "string"},
 				{Name: "version", Type: "string"},
-				{Name: "chainId", Type: "uint8"},
+				{Name: "chainId", Type: "uint32"},
 				{Name: "verifyingContract", Type: "address"},
 			},
 		},
 		PrimaryType: "BulkOrder",
 		Domain: TypedDataDomain{
-			VerifyingContract: "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",
+			Name:              "ImmutableSeaport",
+			Version:           "1.5",
+			ChainId:           math.NewHexOrDecimal256(31337),
+			VerifyingContract: "0x73F43673d3Ca08037e6b6271F801E19277EC1188",
 		},
-		Message: TypedDataMessage{},
+		Message: TypedDataMessage{
+			"tree": []interface{}{
+				[]interface{}{
+					map[string]interface{}{
+						"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+						"zone":    "0xf1c8ffe8eedfb5c302b89ccb22b31aedd7ae6043",
+						"offer": []interface{}{
+							map[string]interface{}{
+								"itemType":             "2",
+								"token":                "0x9d3999af03458c11c78f7e6c0fae712b455d4e33",
+								"identifierOrCriteria": "0",
+								"startAmount":          "1",
+								"endAmount":            "1",
+							},
+						},
+						"consideration": []interface{}{
+							map[string]interface{}{
+								"itemType":             "0",
+								"token":                "0x0000000000000000000000000000000000000000",
+								"identifierOrCriteria": "0",
+								"startAmount":          "1000000",
+								"endAmount":            "1000000",
+								"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+							},
+						},
+						"orderType":  "2",
+						"startTime":  "1721344316",
+						"endTime":    "1784416316",
+						"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"salt":       "0x288351a1835eb797",
+						"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"counter":    "0",
+					},
+					map[string]interface{}{
+						"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+						"zone":    "0xf1c8ffe8eedfb5c302b89ccb22b31aedd7ae6043",
+						"offer": []interface{}{
+							map[string]interface{}{
+								"itemType":             "2",
+								"token":                "0x9d3999af03458c11c78f7e6c0fae712b455d4e33",
+								"identifierOrCriteria": "1",
+								"startAmount":          "1",
+								"endAmount":            "1",
+							},
+						},
+						"consideration": []interface{}{
+							map[string]interface{}{
+								"itemType":             "0",
+								"token":                "0x0000000000000000000000000000000000000000",
+								"identifierOrCriteria": "0",
+								"startAmount":          "1000000",
+								"endAmount":            "1000000",
+								"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+							},
+						},
+						"orderType":  "2",
+						"startTime":  "1721344316",
+						"endTime":    "1784416316",
+						"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"salt":       "0x44dd80ec356bed1f",
+						"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"counter":    "0",
+					},
+				},
+				[]interface{}{
+					map[string]interface{}{
+						"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+						"zone":    "0xf1c8ffe8eedfb5c302b89ccb22b31aedd7ae6043",
+						"offer": []interface{}{
+							map[string]interface{}{
+								"itemType":             "2",
+								"token":                "0x9d3999af03458c11c78f7e6c0fae712b455d4e33",
+								"identifierOrCriteria": "2",
+								"startAmount":          "1",
+								"endAmount":            "1",
+							},
+						},
+						"consideration": []interface{}{
+							map[string]interface{}{
+								"itemType":             "0",
+								"token":                "0x0000000000000000000000000000000000000000",
+								"identifierOrCriteria": "0",
+								"startAmount":          "1000000",
+								"endAmount":            "1000000",
+								"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+							},
+						},
+						"orderType":  "2",
+						"startTime":  "1721344316",
+						"endTime":    "1784416316",
+						"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"salt":       "0x8e9b116f21c29268",
+						"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"counter":    "0",
+					},
+					map[string]interface{}{
+						"offerer":       "0x0000000000000000000000000000000000000000",
+						"zone":          "0x0000000000000000000000000000000000000000",
+						"offer":         []interface{}{},
+						"consideration": []interface{}{},
+						"orderType":     "0",
+						"startTime":     "0",
+						"endTime":       "0",
+						"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"salt":          "0",
+						"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+						"counter":       "0",
+					},
+				},
+			},
+		},
 	}
+
+	domainSeparator, err := typedData.HashStruct("EIP712Domain", typedData.Domain.Map())
+
+	if err != nil {
+		t.Fatalf("failed to hash domain separator: %v", err)
+	}
+
+	messageHash, err := typedData.HashStruct(typedData.PrimaryType, typedData.Message)
+
+	if err != nil {
+		t.Fatalf("failed to hash message: %v", err)
+	}
+
+	// this hash is failing
+	structredHash := crypto.Keccak256Hash([]byte(fmt.Sprintf("%s%s%s", "\x19\x01", string(domainSeparator), string(messageHash))))
+	fmt.Println("structured hash: ", structredHash.Hex())
 
 	if err := typedData.validate(); err != nil {
 		t.Errorf("expected typed data to pass validation, got: %v", err)
@@ -285,4 +509,12 @@ func TestTypedDataArrayValidate(t *testing.T) {
 	if err := typedData.validate(); err != nil {
 		t.Errorf("expected typed data to pass validation, got: %v", err)
 	}
+
+	// Should fail on a bad reference
+	typedData.Types["BulkOrder"][0].Type = "OrderComponent"
+
+	if err := typedData.validate(); err == nil {
+		t.Errorf("expected typed data to fail validation, got nil")
+	}
+
 }
