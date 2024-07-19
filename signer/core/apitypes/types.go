@@ -369,25 +369,33 @@ func (typedData *TypedData) EncodeData(primaryType string, data map[string]inter
 					if reflect.TypeOf(item).Kind() == reflect.Slice ||
 						reflect.TypeOf(item).Kind() == reflect.Array {
 						// If the item is a slice or array, we need to recursively encode it
-						// This is because the item is a nested array, which is not supported by the current implementation
-						// We will need to flatten the array to a single level
-						// For example, if the item is [[1, 2], [3, 4]], we will flatten it to [1, 2, 3, 4]
-						// This is done by converting the item to a slice of interface{}, then recursively encoding it
-						// The encoded data will then be appended to the arrayBuffer
 						sliceValue := reflect.ValueOf(item)
 						for i := 0; i < sliceValue.Len(); i++ {
-							item = sliceValue.Index(i).Interface()
+							innerItem := sliceValue.Index(i).Interface()
+
+							mapValue, ok := innerItem.(map[string]interface{})
+							if !ok {
+								return nil, dataMismatchError(parsedType, innerItem)
+							}
+
+							encodedData, err := typedData.EncodeData(parsedType, mapValue, depth+1)
+							if err != nil {
+								return nil, err
+							}
+							arrayBuffer.Write(crypto.Keccak256(encodedData))
 						}
+					} else {
+						mapValue, ok := item.(map[string]interface{})
+						if !ok {
+							return nil, dataMismatchError(parsedType, item)
+						}
+
+						encodedData, err := typedData.EncodeData(parsedType, mapValue, depth+1)
+						if err != nil {
+							return nil, err
+						}
+						arrayBuffer.Write(crypto.Keccak256(encodedData))
 					}
-					mapValue, ok := item.(map[string]interface{})
-					if !ok {
-						return nil, dataMismatchError(parsedType, item)
-					}
-					encodedData, err := typedData.EncodeData(parsedType, mapValue, depth+1)
-					if err != nil {
-						return nil, err
-					}
-					arrayBuffer.Write(crypto.Keccak256(encodedData))
 				} else {
 					bytesValue, err := typedData.EncodePrimitiveValue(parsedType, item, depth)
 					if err != nil {
