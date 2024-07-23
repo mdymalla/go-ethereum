@@ -18,6 +18,7 @@ package apitypes
 
 import (
 	"bytes"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -89,11 +90,11 @@ type SendTxArgs struct {
 	Value                hexutil.Big              `json:"value"`
 	Nonce                hexutil.Uint64           `json:"nonce"`
 
-	// We accept "data" and "input" for backwards-compatibility reasons.
-	// "input" is the newer name and should be preferred by clients.
+	// We accept "data" and "Input" for backwards-compatibility reasons.
+	// "Input" is the newer name and should be preferred by clients.
 	// Issue detail: https://github.com/ethereum/go-ethereum/issues/15628
 	Data  *hexutil.Bytes `json:"data"`
-	Input *hexutil.Bytes `json:"input,omitempty"`
+	Input *hexutil.Bytes `json:"Input,omitempty"`
 
 	// For non-legacy transactions
 	AccessList *types.AccessList `json:"accessList,omitempty"`
@@ -266,12 +267,21 @@ func (typedData *TypedData) HashStruct(primaryType string, data TypedDataMessage
 	if err != nil {
 		return nil, err
 	}
-	return crypto.Keccak256(encodedData), nil
+	out, _ := encodedData.MarshalText()
+	fmt.Printf("Encoded %v hash struct: %v \n", primaryType, string(out))
+	res := crypto.Keccak256(encodedData)
+	fmt.Printf("Digest %v hash struct: %v \n", primaryType, hex.EncodeToString(res))
+	return res, nil
 }
 
 // Dependencies returns an array of custom types ordered by their hierarchical reference tree
 func (typedData *TypedData) Dependencies(primaryType string, found []string) []string {
-	primaryType = strings.TrimSuffix(primaryType, "[]")
+	if strings.HasSuffix(primaryType, "[]") {
+		primaryType = strings.Replace(primaryType, "[]", "", -1)
+	}
+	if strings.HasSuffix(primaryType, "[2]") {
+		primaryType = strings.Replace(primaryType, "[2]", "", -1)
+	}
 	includes := func(arr []string, str string) bool {
 		for _, obj := range arr {
 			if obj == str {
@@ -350,62 +360,20 @@ func (typedData *TypedData) EncodeData(primaryType string, data map[string]inter
 	}
 
 	// Add typehash
-	buffer.Write(typedData.TypeHash(primaryType))
+	typHash := typedData.TypeHash(primaryType)
+	typHashMarshalled, _ := typHash.MarshalText()
+	fmt.Printf("%v type hash : %v \n", primaryType, string(typHashMarshalled))
+	//fmt.Printf("%v type hash : %v \n", primaryType, hex.EncodeToString(crypto.Keccak256(typHashMarshalled)))
+	buffer.Write(typHash)
 
 	// Add field contents. Structs and arrays have special handlers.
 	for _, field := range typedData.Types[primaryType] {
 		encType := field.Type
 		encValue := data[field.Name]
 		if encType[len(encType)-1:] == "]" {
-			arrayValue, err := convertDataToSlice(encValue)
-			if err != nil {
-				return nil, dataMismatchError(encType, encValue)
+			if err := typedData.encodeArrayType(encValue, encType, depth, &buffer); err != nil {
+				return nil, err
 			}
-
-			arrayBuffer := bytes.Buffer{}
-			parsedType := strings.Split(encType, "[")[0]
-			for _, item := range arrayValue {
-				if typedData.Types[parsedType] != nil {
-					if reflect.TypeOf(item).Kind() == reflect.Slice ||
-						reflect.TypeOf(item).Kind() == reflect.Array {
-						// If the item is a slice or array, we need to recursively encode it
-						sliceValue := reflect.ValueOf(item)
-						for i := 0; i < sliceValue.Len(); i++ {
-							innerItem := sliceValue.Index(i).Interface()
-
-							mapValue, ok := innerItem.(map[string]interface{})
-							if !ok {
-								return nil, dataMismatchError(parsedType, innerItem)
-							}
-
-							encodedData, err := typedData.EncodeData(parsedType, mapValue, depth+1)
-							if err != nil {
-								return nil, err
-							}
-							arrayBuffer.Write(crypto.Keccak256(encodedData))
-						}
-					} else {
-						mapValue, ok := item.(map[string]interface{})
-						if !ok {
-							return nil, dataMismatchError(parsedType, item)
-						}
-
-						encodedData, err := typedData.EncodeData(parsedType, mapValue, depth+1)
-						if err != nil {
-							return nil, err
-						}
-						arrayBuffer.Write(crypto.Keccak256(encodedData))
-					}
-				} else {
-					bytesValue, err := typedData.EncodePrimitiveValue(parsedType, item, depth)
-					if err != nil {
-						return nil, err
-					}
-					arrayBuffer.Write(bytesValue)
-				}
-			}
-
-			buffer.Write(crypto.Keccak256(arrayBuffer.Bytes()))
 		} else if typedData.Types[field.Type] != nil {
 			mapValue, ok := encValue.(map[string]interface{})
 			if !ok {
@@ -415,6 +383,11 @@ func (typedData *TypedData) EncodeData(primaryType string, data map[string]inter
 			if err != nil {
 				return nil, err
 			}
+			//marshalled, _ := encodedData.MarshalText()
+			//fmt.Printf("%v marshalled : %v \n", encType, string(marshalled))
+			combined := crypto.Keccak256(encodedData)
+			fmt.Printf("%v combined : %v \n", encType, hex.EncodeToString(combined))
+			buffer.Write(combined)
 			buffer.Write(crypto.Keccak256(encodedData))
 		} else {
 			byteValue, err := typedData.EncodePrimitiveValue(encType, encValue, depth)
@@ -424,7 +397,52 @@ func (typedData *TypedData) EncodeData(primaryType string, data map[string]inter
 			buffer.Write(byteValue)
 		}
 	}
-	return buffer.Bytes(), nil
+	res := buffer.Bytes()
+	//fmt.Printf("%v encode data: %v \n", primaryType, hex.EncodeToString(crypto.Keccak256(res)))
+	return res, nil
+}
+
+func (typedData *TypedData) encodeArrayType(encValue interface{}, encType string, depth int, buffer *bytes.Buffer) error {
+	arrayValue, err := convertDataToSlice(encValue)
+	if err != nil {
+		return dataMismatchError(encType, encValue)
+	}
+
+	arrayBuffer := bytes.Buffer{}
+	parsedType := strings.Split(encType, "[")[0]
+	for _, item := range arrayValue {
+		if reflect.TypeOf(item).Kind() == reflect.Slice {
+			if err := typedData.encodeArrayType(item, parsedType, depth+1, buffer); err != nil {
+				return err
+			}
+		} else {
+			if typedData.Types[parsedType] != nil {
+				mapValue, ok := item.(map[string]interface{})
+				if !ok {
+					return dataMismatchError(parsedType, item)
+				}
+				encodedData, err := typedData.EncodeData(parsedType, mapValue, depth+1)
+				if err != nil {
+					return err
+				}
+				digest := crypto.Keccak256(encodedData)
+				arrayBuffer.Write(digest)
+				//marshalled, _ := encodedData.MarshalText()
+				//fmt.Printf("%v marshalled %v : %v \n", parsedType, idx, string(marshalled))
+				//fmt.Printf("%v digest %v : %v \n", parsedType, idx, hex.EncodeToString(digest))
+			} else {
+				bytesValue, err := typedData.EncodePrimitiveValue(parsedType, item, depth)
+				if err != nil {
+					return err
+				}
+				arrayBuffer.Write(bytesValue)
+			}
+		}
+	}
+	combined := crypto.Keccak256(arrayBuffer.Bytes())
+	fmt.Printf("%v writing array contents to main buffer : %v \n", parsedType, hex.EncodeToString(combined))
+	buffer.Write(combined)
+	return nil
 }
 
 // Attempt to parse bytes in different formats: byte array, hex string, hexutil.Bytes.
