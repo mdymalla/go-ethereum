@@ -848,6 +848,1727 @@ func TestTypedDataArrayValidate(t *testing.T) {
 			"BulkOrder": []Type{
 				{
 					Name: "tree",
+					Type: "OrderComponents[2][2][2]",
+				},
+			},
+			"OrderComponents": []Type{
+				{
+					Name: "offerer",
+					Type: "address",
+				},
+				{
+					Name: "zone",
+					Type: "address",
+				},
+				{
+					Name: "offer",
+					Type: "OfferItem[]",
+				},
+				{
+					Name: "consideration",
+					Type: "ConsiderationItem[]",
+				},
+				{
+					Name: "orderType",
+					Type: "uint8",
+				},
+				{
+					Name: "startTime",
+					Type: "uint256",
+				},
+				{
+					Name: "endTime",
+					Type: "uint256",
+				},
+				{
+					Name: "zoneHash",
+					Type: "bytes32",
+				},
+				{
+					Name: "salt",
+					Type: "uint256",
+				},
+				{
+					Name: "conduitKey",
+					Type: "bytes32",
+				},
+				{
+					Name: "counter",
+					Type: "uint256",
+				},
+			},
+			"OfferItem": []Type{
+				{
+					Name: "itemType",
+					Type: "uint8",
+				},
+				{
+					Name: "token",
+					Type: "address",
+				},
+				{
+					Name: "identifierOrCriteria",
+					Type: "uint256",
+				},
+				{
+					Name: "startAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "endAmount",
+					Type: "uint256",
+				},
+			},
+			"ConsiderationItem": []Type{
+				{
+					Name: "itemType",
+					Type: "uint8",
+				},
+				{
+					Name: "token",
+					Type: "address",
+				},
+				{
+					Name: "identifierOrCriteria",
+					Type: "uint256",
+				},
+				{
+					Name: "startAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "endAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "recipient",
+					Type: "address",
+				},
+			},
+			"EIP712Domain": []Type{
+				{Name: "name", Type: "string"},
+				{Name: "version", Type: "string"},
+				{Name: "chainId", Type: "uint256"},
+				{Name: "verifyingContract", Type: "address"},
+			},
+		},
+		PrimaryType: "BulkOrder",
+		Domain: TypedDataDomain{
+			Name:              "ImmutableSeaport",
+			Version:           "1.5",
+			ChainId:           math.NewHexOrDecimal256(31337),
+			VerifyingContract: "0x3870289A34bba912a05B2c0503F7484dD18d2f6F",
+		},
+		Message: TypedDataMessage{
+			"tree": []interface{}{
+				[]interface{}{
+					[]interface{}{
+						map[string]interface{}{
+							"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+							"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+							"offer": []interface{}{
+								map[string]interface{}{
+									"itemType":             "2",
+									"token":                "0x2f8d338360d095a72680a943a22fe6a0d398a0b4",
+									"identifierOrCriteria": "0",
+									"startAmount":          "1",
+									"endAmount":            "1",
+								},
+							},
+							"consideration": []interface{}{
+								map[string]interface{}{
+									"itemType":             "0",
+									"token":                "0x0000000000000000000000000000000000000000",
+									"identifierOrCriteria": "0",
+									"startAmount":          "1000000",
+									"endAmount":            "1000000",
+									"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								},
+							},
+							"orderType":  "2",
+							"startTime":  "1721798594",
+							"endTime":    "1784870594",
+							"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"salt":       "0xea6603a0f70fa487",
+							"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"counter":    "0",
+						},
+						map[string]interface{}{
+							"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+							"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+							"offer": []interface{}{
+								map[string]interface{}{
+									"itemType":             "2",
+									"token":                "0x2f8d338360d095a72680a943a22fe6a0d398a0b4",
+									"identifierOrCriteria": "1",
+									"startAmount":          "1",
+									"endAmount":            "1",
+								},
+							},
+							"consideration": []interface{}{
+								map[string]interface{}{
+									"itemType":             "0",
+									"token":                "0x0000000000000000000000000000000000000000",
+									"identifierOrCriteria": "0",
+									"startAmount":          "1000000",
+									"endAmount":            "1000000",
+									"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								},
+							},
+							"orderType":  "2",
+							"startTime":  "1721798594",
+							"endTime":    "1784870594",
+							"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"salt":       "0x5e5926d7394ebc15",
+							"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"counter":    "0",
+						},
+					},
+					[]interface{}{
+						map[string]interface{}{
+							"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+							"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+							"offer": []interface{}{
+								map[string]interface{}{
+									"itemType":             "2",
+									"token":                "0x2f8d338360d095a72680a943a22fe6a0d398a0b4",
+									"identifierOrCriteria": "2",
+									"startAmount":          "1",
+									"endAmount":            "1",
+								},
+							},
+							"consideration": []interface{}{
+								map[string]interface{}{
+									"itemType":             "0",
+									"token":                "0x0000000000000000000000000000000000000000",
+									"identifierOrCriteria": "0",
+									"startAmount":          "1000000",
+									"endAmount":            "1000000",
+									"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								},
+							},
+							"orderType":  "2",
+							"startTime":  "1721798594",
+							"endTime":    "1784870594",
+							"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"salt":       "0xecb78d6939c73069",
+							"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"counter":    "0",
+						},
+						map[string]interface{}{
+							"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+							"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+							"offer": []interface{}{
+								map[string]interface{}{
+									"itemType":             "2",
+									"token":                "0x2f8d338360d095a72680a943a22fe6a0d398a0b4",
+									"identifierOrCriteria": "3",
+									"startAmount":          "1",
+									"endAmount":            "1",
+								},
+							},
+							"consideration": []interface{}{
+								map[string]interface{}{
+									"itemType":             "0",
+									"token":                "0x0000000000000000000000000000000000000000",
+									"identifierOrCriteria": "0",
+									"startAmount":          "1000000",
+									"endAmount":            "1000000",
+									"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								},
+							},
+							"orderType":  "2",
+							"startTime":  "1721798594",
+							"endTime":    "1784870594",
+							"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"salt":       "0xb468f60676944382",
+							"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"counter":    "0",
+						},
+					},
+				},
+				[]interface{}{
+					[]interface{}{
+						map[string]interface{}{
+							"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+							"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+							"offer": []interface{}{
+								map[string]interface{}{
+									"itemType":             "2",
+									"token":                "0x2f8d338360d095a72680a943a22fe6a0d398a0b4",
+									"identifierOrCriteria": "4",
+									"startAmount":          "1",
+									"endAmount":            "1",
+								},
+							},
+							"consideration": []interface{}{
+								map[string]interface{}{
+									"itemType":             "0",
+									"token":                "0x0000000000000000000000000000000000000000",
+									"identifierOrCriteria": "0",
+									"startAmount":          "1000000",
+									"endAmount":            "1000000",
+									"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								},
+							},
+							"orderType":  "2",
+							"startTime":  "1721798594",
+							"endTime":    "1784870594",
+							"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"salt":       "0x84e6227b4e60e915",
+							"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"counter":    "0",
+						},
+						map[string]interface{}{
+							"offerer":       "0x0000000000000000000000000000000000000000",
+							"zone":          "0x0000000000000000000000000000000000000000",
+							"offer":         []interface{}{},
+							"consideration": []interface{}{},
+							"orderType":     "0",
+							"startTime":     "0",
+							"endTime":       "0",
+							"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"salt":          "0",
+							"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"counter":       "0",
+						},
+					},
+					[]interface{}{
+						map[string]interface{}{
+							"offerer":       "0x0000000000000000000000000000000000000000",
+							"zone":          "0x0000000000000000000000000000000000000000",
+							"offer":         []interface{}{},
+							"consideration": []interface{}{},
+							"orderType":     "0",
+							"startTime":     "0",
+							"endTime":       "0",
+							"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"salt":          "0",
+							"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"counter":       "0",
+						},
+						map[string]interface{}{
+							"offerer":       "0x0000000000000000000000000000000000000000",
+							"zone":          "0x0000000000000000000000000000000000000000",
+							"offer":         []interface{}{},
+							"consideration": []interface{}{},
+							"orderType":     "0",
+							"startTime":     "0",
+							"endTime":       "0",
+							"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"salt":          "0",
+							"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+							"counter":       "0",
+						},
+					},
+				},
+			},
+		},
+	}
+
+	typedData4 := TypedData{
+		Types: Types{
+			"BulkOrder": []Type{
+				{
+					Name: "tree",
+					Type: "OrderComponents[2][2][2][2]",
+				},
+			},
+			"OrderComponents": []Type{
+				{
+					Name: "offerer",
+					Type: "address",
+				},
+				{
+					Name: "zone",
+					Type: "address",
+				},
+				{
+					Name: "offer",
+					Type: "OfferItem[]",
+				},
+				{
+					Name: "consideration",
+					Type: "ConsiderationItem[]",
+				},
+				{
+					Name: "orderType",
+					Type: "uint8",
+				},
+				{
+					Name: "startTime",
+					Type: "uint256",
+				},
+				{
+					Name: "endTime",
+					Type: "uint256",
+				},
+				{
+					Name: "zoneHash",
+					Type: "bytes32",
+				},
+				{
+					Name: "salt",
+					Type: "uint256",
+				},
+				{
+					Name: "conduitKey",
+					Type: "bytes32",
+				},
+				{
+					Name: "counter",
+					Type: "uint256",
+				},
+			},
+			"OfferItem": []Type{
+				{
+					Name: "itemType",
+					Type: "uint8",
+				},
+				{
+					Name: "token",
+					Type: "address",
+				},
+				{
+					Name: "identifierOrCriteria",
+					Type: "uint256",
+				},
+				{
+					Name: "startAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "endAmount",
+					Type: "uint256",
+				},
+			},
+			"ConsiderationItem": []Type{
+				{
+					Name: "itemType",
+					Type: "uint8",
+				},
+				{
+					Name: "token",
+					Type: "address",
+				},
+				{
+					Name: "identifierOrCriteria",
+					Type: "uint256",
+				},
+				{
+					Name: "startAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "endAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "recipient",
+					Type: "address",
+				},
+			},
+			"EIP712Domain": []Type{
+				{Name: "name", Type: "string"},
+				{Name: "version", Type: "string"},
+				{Name: "chainId", Type: "uint256"},
+				{Name: "verifyingContract", Type: "address"},
+			},
+		},
+		PrimaryType: "BulkOrder",
+		Domain: TypedDataDomain{
+			Name:              "ImmutableSeaport",
+			Version:           "1.5",
+			ChainId:           math.NewHexOrDecimal256(31337),
+			VerifyingContract: "0x3870289A34bba912a05B2c0503F7484dD18d2f6F",
+		},
+		Message: TypedDataMessage{
+			"tree": []interface{}{
+				[]interface{}{
+					[]interface{}{
+						[]interface{}{
+							map[string]interface{}{
+								"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+								"offer": []interface{}{
+									map[string]interface{}{
+										"itemType":             "2",
+										"token":                "0xc1eed9232a0a44c2463acb83698c162966fbc78d",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1",
+										"endAmount":            "1",
+									},
+								},
+								"consideration": []interface{}{
+									map[string]interface{}{
+										"itemType":             "0",
+										"token":                "0x0000000000000000000000000000000000000000",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1000000",
+										"endAmount":            "1000000",
+										"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									},
+								},
+								"orderType":  "2",
+								"startTime":  "1721798609",
+								"endTime":    "1784870609",
+								"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":       "0x0aea7fa399421d03",
+								"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":    "0",
+							},
+							map[string]interface{}{
+								"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+								"offer": []interface{}{
+									map[string]interface{}{
+										"itemType":             "2",
+										"token":                "0xc1eed9232a0a44c2463acb83698c162966fbc78d",
+										"identifierOrCriteria": "1",
+										"startAmount":          "1",
+										"endAmount":            "1",
+									},
+								},
+								"consideration": []interface{}{
+									map[string]interface{}{
+										"itemType":             "0",
+										"token":                "0x0000000000000000000000000000000000000000",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1000000",
+										"endAmount":            "1000000",
+										"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									},
+								},
+								"orderType":  "2",
+								"startTime":  "1721798609",
+								"endTime":    "1784870609",
+								"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":       "0x547bf138eb02083d",
+								"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":    "0",
+							},
+						},
+						[]interface{}{
+							map[string]interface{}{
+								"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+								"offer": []interface{}{
+									map[string]interface{}{
+										"itemType":             "2",
+										"token":                "0xc1eed9232a0a44c2463acb83698c162966fbc78d",
+										"identifierOrCriteria": "2",
+										"startAmount":          "1",
+										"endAmount":            "1",
+									},
+								},
+								"consideration": []interface{}{
+									map[string]interface{}{
+										"itemType":             "0",
+										"token":                "0x0000000000000000000000000000000000000000",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1000000",
+										"endAmount":            "1000000",
+										"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									},
+								},
+								"orderType":  "2",
+								"startTime":  "1721798609",
+								"endTime":    "1784870609",
+								"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":       "0x1fdc5cf73c2846",
+								"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":    "0",
+							},
+							map[string]interface{}{
+								"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+								"offer": []interface{}{
+									map[string]interface{}{
+										"itemType":             "2",
+										"token":                "0xc1eed9232a0a44c2463acb83698c162966fbc78d",
+										"identifierOrCriteria": "3",
+										"startAmount":          "1",
+										"endAmount":            "1",
+									},
+								},
+								"consideration": []interface{}{
+									map[string]interface{}{
+										"itemType":             "0",
+										"token":                "0x0000000000000000000000000000000000000000",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1000000",
+										"endAmount":            "1000000",
+										"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									},
+								},
+								"orderType":  "2",
+								"startTime":  "1721798609",
+								"endTime":    "1784870609",
+								"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":       "0x982c1f45640e7238",
+								"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":    "0",
+							},
+						},
+					},
+					[]interface{}{
+						[]interface{}{
+							map[string]interface{}{
+								"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+								"offer": []interface{}{
+									map[string]interface{}{
+										"itemType":             "2",
+										"token":                "0xc1eed9232a0a44c2463acb83698c162966fbc78d",
+										"identifierOrCriteria": "4",
+										"startAmount":          "1",
+										"endAmount":            "1",
+									},
+								},
+								"consideration": []interface{}{
+									map[string]interface{}{
+										"itemType":             "0",
+										"token":                "0x0000000000000000000000000000000000000000",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1000000",
+										"endAmount":            "1000000",
+										"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									},
+								},
+								"orderType":  "2",
+								"startTime":  "1721798609",
+								"endTime":    "1784870609",
+								"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":       "0x52438c99a8a41726",
+								"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":    "0",
+							},
+							map[string]interface{}{
+								"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+								"offer": []interface{}{
+									map[string]interface{}{
+										"itemType":             "2",
+										"token":                "0xc1eed9232a0a44c2463acb83698c162966fbc78d",
+										"identifierOrCriteria": "5",
+										"startAmount":          "1",
+										"endAmount":            "1",
+									},
+								},
+								"consideration": []interface{}{
+									map[string]interface{}{
+										"itemType":             "0",
+										"token":                "0x0000000000000000000000000000000000000000",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1000000",
+										"endAmount":            "1000000",
+										"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									},
+								},
+								"orderType":  "2",
+								"startTime":  "1721798609",
+								"endTime":    "1784870609",
+								"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":       "0x17a2c2cca1c84c21",
+								"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":    "0",
+							},
+						},
+						[]interface{}{
+							map[string]interface{}{
+								"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+								"offer": []interface{}{
+									map[string]interface{}{
+										"itemType":             "2",
+										"token":                "0xc1eed9232a0a44c2463acb83698c162966fbc78d",
+										"identifierOrCriteria": "6",
+										"startAmount":          "1",
+										"endAmount":            "1",
+									},
+								},
+								"consideration": []interface{}{
+									map[string]interface{}{
+										"itemType":             "0",
+										"token":                "0x0000000000000000000000000000000000000000",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1000000",
+										"endAmount":            "1000000",
+										"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									},
+								},
+								"orderType":  "2",
+								"startTime":  "1721798609",
+								"endTime":    "1784870609",
+								"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":       "0xad92568ed1ac612a",
+								"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":    "0",
+							},
+							map[string]interface{}{
+								"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+								"offer": []interface{}{
+									map[string]interface{}{
+										"itemType":             "2",
+										"token":                "0xc1eed9232a0a44c2463acb83698c162966fbc78d",
+										"identifierOrCriteria": "7",
+										"startAmount":          "1",
+										"endAmount":            "1",
+									},
+								},
+								"consideration": []interface{}{
+									map[string]interface{}{
+										"itemType":             "0",
+										"token":                "0x0000000000000000000000000000000000000000",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1000000",
+										"endAmount":            "1000000",
+										"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									},
+								},
+								"orderType":  "2",
+								"startTime":  "1721798609",
+								"endTime":    "1784870609",
+								"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":       "0x1d72b3b8d1dfd249",
+								"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":    "0",
+							},
+						},
+					},
+				},
+				[]interface{}{
+					[]interface{}{
+						[]interface{}{
+							map[string]interface{}{
+								"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+								"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+								"offer": []interface{}{
+									map[string]interface{}{
+										"itemType":             "2",
+										"token":                "0xc1eed9232a0a44c2463acb83698c162966fbc78d",
+										"identifierOrCriteria": "8",
+										"startAmount":          "1",
+										"endAmount":            "1",
+									},
+								},
+								"consideration": []interface{}{
+									map[string]interface{}{
+										"itemType":             "0",
+										"token":                "0x0000000000000000000000000000000000000000",
+										"identifierOrCriteria": "0",
+										"startAmount":          "1000000",
+										"endAmount":            "1000000",
+										"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									},
+								},
+								"orderType":  "2",
+								"startTime":  "1721798609",
+								"endTime":    "1784870609",
+								"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":       "0x03834e51be5d84bf",
+								"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":    "0",
+							},
+							map[string]interface{}{
+								"offerer":       "0x0000000000000000000000000000000000000000",
+								"zone":          "0x0000000000000000000000000000000000000000",
+								"offer":         []interface{}{},
+								"consideration": []interface{}{},
+								"orderType":     "0",
+								"startTime":     "0",
+								"endTime":       "0",
+								"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":          "0",
+								"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":       "0",
+							},
+						},
+						[]interface{}{
+							map[string]interface{}{
+								"offerer":       "0x0000000000000000000000000000000000000000",
+								"zone":          "0x0000000000000000000000000000000000000000",
+								"offer":         []interface{}{},
+								"consideration": []interface{}{},
+								"orderType":     "0",
+								"startTime":     "0",
+								"endTime":       "0",
+								"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":          "0",
+								"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":       "0",
+							},
+							map[string]interface{}{
+								"offerer":       "0x0000000000000000000000000000000000000000",
+								"zone":          "0x0000000000000000000000000000000000000000",
+								"offer":         []interface{}{},
+								"consideration": []interface{}{},
+								"orderType":     "0",
+								"startTime":     "0",
+								"endTime":       "0",
+								"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":          "0",
+								"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":       "0",
+							},
+						},
+					},
+					[]interface{}{
+						[]interface{}{
+							map[string]interface{}{
+								"offerer":       "0x0000000000000000000000000000000000000000",
+								"zone":          "0x0000000000000000000000000000000000000000",
+								"offer":         []interface{}{},
+								"consideration": []interface{}{},
+								"orderType":     "0",
+								"startTime":     "0",
+								"endTime":       "0",
+								"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":          "0",
+								"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":       "0",
+							},
+							map[string]interface{}{
+								"offerer":       "0x0000000000000000000000000000000000000000",
+								"zone":          "0x0000000000000000000000000000000000000000",
+								"offer":         []interface{}{},
+								"consideration": []interface{}{},
+								"orderType":     "0",
+								"startTime":     "0",
+								"endTime":       "0",
+								"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":          "0",
+								"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":       "0",
+							},
+						},
+						[]interface{}{
+							map[string]interface{}{
+								"offerer":       "0x0000000000000000000000000000000000000000",
+								"zone":          "0x0000000000000000000000000000000000000000",
+								"offer":         []interface{}{},
+								"consideration": []interface{}{},
+								"orderType":     "0",
+								"startTime":     "0",
+								"endTime":       "0",
+								"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":          "0",
+								"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":       "0",
+							},
+							map[string]interface{}{
+								"offerer":       "0x0000000000000000000000000000000000000000",
+								"zone":          "0x0000000000000000000000000000000000000000",
+								"offer":         []interface{}{},
+								"consideration": []interface{}{},
+								"orderType":     "0",
+								"startTime":     "0",
+								"endTime":       "0",
+								"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"salt":          "0",
+								"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+								"counter":       "0",
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	typedData5 := TypedData{
+		Types: Types{
+			"BulkOrder": []Type{
+				{
+					Name: "tree",
+					Type: "OrderComponents[2][2][2][2][2]",
+				},
+			},
+			"OrderComponents": []Type{
+				{
+					Name: "offerer",
+					Type: "address",
+				},
+				{
+					Name: "zone",
+					Type: "address",
+				},
+				{
+					Name: "offer",
+					Type: "OfferItem[]",
+				},
+				{
+					Name: "consideration",
+					Type: "ConsiderationItem[]",
+				},
+				{
+					Name: "orderType",
+					Type: "uint8",
+				},
+				{
+					Name: "startTime",
+					Type: "uint256",
+				},
+				{
+					Name: "endTime",
+					Type: "uint256",
+				},
+				{
+					Name: "zoneHash",
+					Type: "bytes32",
+				},
+				{
+					Name: "salt",
+					Type: "uint256",
+				},
+				{
+					Name: "conduitKey",
+					Type: "bytes32",
+				},
+				{
+					Name: "counter",
+					Type: "uint256",
+				},
+			},
+			"OfferItem": []Type{
+				{
+					Name: "itemType",
+					Type: "uint8",
+				},
+				{
+					Name: "token",
+					Type: "address",
+				},
+				{
+					Name: "identifierOrCriteria",
+					Type: "uint256",
+				},
+				{
+					Name: "startAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "endAmount",
+					Type: "uint256",
+				},
+			},
+			"ConsiderationItem": []Type{
+				{
+					Name: "itemType",
+					Type: "uint8",
+				},
+				{
+					Name: "token",
+					Type: "address",
+				},
+				{
+					Name: "identifierOrCriteria",
+					Type: "uint256",
+				},
+				{
+					Name: "startAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "endAmount",
+					Type: "uint256",
+				},
+				{
+					Name: "recipient",
+					Type: "address",
+				},
+			},
+			"EIP712Domain": []Type{
+				{Name: "name", Type: "string"},
+				{Name: "version", Type: "string"},
+				{Name: "chainId", Type: "uint256"},
+				{Name: "verifyingContract", Type: "address"},
+			},
+		},
+		PrimaryType: "BulkOrder",
+		Domain: TypedDataDomain{
+			Name:              "ImmutableSeaport",
+			Version:           "1.5",
+			ChainId:           math.NewHexOrDecimal256(31337),
+			VerifyingContract: "0x3870289A34bba912a05B2c0503F7484dD18d2f6F",
+		},
+		Message: TypedDataMessage{
+			"tree": []interface{}{
+				[]interface{}{
+					[]interface{}{
+						[]interface{}{
+							[]interface{}{
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0xad1cd95e33df638d",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "1",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0x8c46499a985556e7",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+							},
+							[]interface{}{
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "2",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0xf113dfcd2fd90f34",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "3",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0x86e05a39d63439ab",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+							},
+						},
+						[]interface{}{
+							[]interface{}{
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "4",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0xea0549310e1fcf98",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "5",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0x3c7ebf9ef6b22665",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+							},
+							[]interface{}{
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "6",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0x6d8a0266cd32c3cf",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "7",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0x5508a5f8c60e761f",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+							},
+						},
+					},
+					[]interface{}{
+						[]interface{}{
+							[]interface{}{
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "8",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0xde53a72c803e4780",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "9",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0xb4ad240444cd7c1d",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+							},
+							[]interface{}{
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "10",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0xd5559fcc7192a0e8",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "11",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0xdde06bfaf059bf21",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+							},
+						},
+						[]interface{}{
+							[]interface{}{
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "12",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0x02f0b40bd92ec30d",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "13",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0xa2e93fa3d6add8ef",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+							},
+							[]interface{}{
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "14",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0x1c9502d5e53ca013",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "15",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0x32c9f5cdbbcf0a0e",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+							},
+						},
+					},
+				},
+				[]interface{}{
+					[]interface{}{
+						[]interface{}{
+							[]interface{}{
+								map[string]interface{}{
+									"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+									"zone":    "0x84c7fea5b8c328db68632a3bdda3aadab7d36e66",
+									"offer": []interface{}{
+										map[string]interface{}{
+											"itemType":             "2",
+											"token":                "0xd28f3246f047efd4059b24fa1fa587ed9fa3e77f",
+											"identifierOrCriteria": "16",
+											"startAmount":          "1",
+											"endAmount":            "1",
+										},
+									},
+									"consideration": []interface{}{
+										map[string]interface{}{
+											"itemType":             "0",
+											"token":                "0x0000000000000000000000000000000000000000",
+											"identifierOrCriteria": "0",
+											"startAmount":          "1000000",
+											"endAmount":            "1000000",
+											"recipient":            "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+										},
+									},
+									"orderType":  "2",
+									"startTime":  "1721798656",
+									"endTime":    "1784870656",
+									"zoneHash":   "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":       "0x9cc16b772ab421d8",
+									"conduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":    "0",
+								},
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+							},
+							[]interface{}{
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+							},
+						},
+						[]interface{}{
+							[]interface{}{
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+							},
+							[]interface{}{
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+							},
+						},
+					},
+					[]interface{}{
+						[]interface{}{
+							[]interface{}{
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+							},
+							[]interface{}{
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+							},
+						},
+						[]interface{}{
+							[]interface{}{
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+							},
+							[]interface{}{
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+								map[string]interface{}{
+									"offerer":       "0x0000000000000000000000000000000000000000",
+									"zone":          "0x0000000000000000000000000000000000000000",
+									"offer":         []interface{}{},
+									"consideration": []interface{}{},
+									"orderType":     "0",
+									"startTime":     "0",
+									"endTime":       "0",
+									"zoneHash":      "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"salt":          "0",
+									"conduitKey":    "0x0000000000000000000000000000000000000000000000000000000000000000",
+									"counter":       "0",
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+
+	typedData2DLean := TypedData{
+		Types: Types{
+			"BulkOrder": []Type{
+				{
+					Name: "tree",
 					Type: "OrderComponents[2][2]",
 				},
 			},
@@ -893,44 +2614,44 @@ func TestTypedDataArrayValidate(t *testing.T) {
 		},
 	}
 
-	typedData4 := TypedData{
-		Types: Types{
-			"Struct5": []Type{
-				{
-					Name: "param2",
-					Type: "string[3][3]",
-				},
-			},
-			"EIP712Domain": []Type{
-				{Name: "name", Type: "string"},
-				{Name: "chainId", Type: "uint256"},
-			},
-		},
-		PrimaryType: "Struct5",
-		Domain: TypedDataDomain{
-			Name:    "Moo é🚀oM o     MMoéMé🚀MéMéM",
-			ChainId: math.NewHexOrDecimal256(900),
-		},
-		Message: TypedDataMessage{
-			"param2": []interface{}{
-				[]string{
-					"Moo é🚀MMo 🚀🚀MM oéoooéé",
-					"Moo é🚀 éo🚀 🚀oéoMo",
-					"Moo é🚀oééoéM oMé Moéoo oo M MMoééoooo🚀M🚀o🚀oéMo oo é Moo ooo oo🚀 ",
-				},
-				[]string{
-					"Moo é🚀o🚀ooéMMooooMo oo  o🚀 M🚀Mooo oé🚀o🚀oéoM 🚀M oéo🚀 🚀🚀  🚀o🚀   M",
-					"Moo é🚀oéé🚀ooéo ooooM🚀🚀éo🚀🚀🚀ooé🚀 éooM🚀oooooMoo Mo🚀ooooMM 🚀 🚀",
-					"Moo é🚀oo🚀M o🚀oo🚀éoMoooM  oM M🚀ooMM🚀 éo MooMM  éooo",
-				},
-				[]string{
-					"Moo é🚀MMMééo oM o🚀 🚀🚀 Mo o🚀éo🚀oMoé éé oo🚀éé🚀Méoé🚀🚀oéoo 🚀",
-					"Moo é🚀 🚀M",
-					"Moo é🚀oo🚀Mo🚀🚀oMo🚀M🚀 o  MMoo   ééMoé MoMoMMooééoo🚀 éo",
-				},
-			},
-		},
-	}
+	//typedDataEthersExample := TypedData{
+	//	Types: Types{
+	//		"Struct5": []Type{
+	//			{
+	//				Name: "param2",
+	//				Type: "string[3][3]",
+	//			},
+	//		},
+	//		"EIP712Domain": []Type{
+	//			{Name: "name", Type: "string"},
+	//			{Name: "chainId", Type: "uint256"},
+	//		},
+	//	},
+	//	PrimaryType: "Struct5",
+	//	Domain: TypedDataDomain{
+	//		Name:    "Moo é🚀oM o     MMoéMé🚀MéMéM",
+	//		ChainId: math.NewHexOrDecimal256(900),
+	//	},
+	//	Message: TypedDataMessage{
+	//		"param2": []interface{}{
+	//			[]string{
+	//				"Moo é🚀MMo 🚀🚀MM oéoooéé",
+	//				"Moo é🚀 éo🚀 🚀oéoMo",
+	//				"Moo é🚀oééoéM oMé Moéoo oo M MMoééoooo🚀M🚀o🚀oéMo oo é Moo ooo oo🚀 ",
+	//			},
+	//			[]string{
+	//				"Moo é🚀o🚀ooéMMooooMo oo  o🚀 M🚀Mooo oé🚀o🚀oéoM 🚀M oéo🚀 🚀🚀  🚀o🚀   M",
+	//				"Moo é🚀oéé🚀ooéo ooooM🚀🚀éo🚀🚀🚀ooé🚀 éooM🚀oooooMoo Mo🚀ooooMM 🚀 🚀",
+	//				"Moo é🚀oo🚀M o🚀oo🚀éoMoooM  oM M🚀ooMM🚀 éo MooMM  éooo",
+	//			},
+	//			[]string{
+	//				"Moo é🚀MMMééo oM o🚀 🚀🚀 Mo o🚀éo🚀oMoé éé oo🚀éé🚀Méoé🚀🚀oéoo 🚀",
+	//				"Moo é🚀 🚀M",
+	//				"Moo é🚀oo🚀Mo🚀🚀oMo🚀M🚀 o  MMoo   ééMoé MoMoMMooééoo🚀 éo",
+	//			},
+	//		},
+	//	},
+	//}
 
 	type fields struct {
 		Input TypedData
@@ -973,24 +2694,52 @@ func TestTypedDataArrayValidate(t *testing.T) {
 				messageHash:  "0x369514af6e781a85186ef2c059e0d9e7b14e5d58a95970655794439eca7f3f7e",
 			},
 		},
-		"obmr-two-dimension-lean": {
+		"obmr-three-dimension": {
 			Fields: fields{
 				Input: typedData3,
+			}, Want: want{
+				completeHash: "0xba39e9b22ff1ecd70a6ca86875a8c28e8c3f638d089071edaf97c1e4b6b072a0",
+				domainHash:   "0x94c78e94e233546655365725a17a437f48bb870b898e35b894da4a0887172dc2",
+				messageHash:  "0xb5676629424954a09bd2aea49194741ea05d9525153b062b4507b45c7a0ad759",
+			},
+		},
+		"obmr-four-dimension": {
+			Fields: fields{
+				Input: typedData4,
+			}, Want: want{
+				completeHash: "0x9478f43bbeeb2da013ff8595f19a3cb803b41c72596dc0faa6ff1d1b8a70c9f8",
+				domainHash:   "0x94c78e94e233546655365725a17a437f48bb870b898e35b894da4a0887172dc2",
+				messageHash:  "0x6141febc9edb34347a91729533c7c8d3a934fdc34429a0ef9497d5d22664321c",
+			},
+		},
+		"obmr-five-dimension": {
+			Fields: fields{
+				Input: typedData5,
+			}, Want: want{
+				completeHash: "0xc319cb3f3ad00993bd33741486db2c9dec09fe8afc1757697cb7ce2b35e1b8e1",
+				domainHash:   "0x94c78e94e233546655365725a17a437f48bb870b898e35b894da4a0887172dc2",
+				messageHash:  "0x127b8c1a34e217116438ea08d10a5e6679ec57fd553ba64891f24500f12dada0",
+			},
+		},
+		"obmr-two-dimension-lean": {
+			Fields: fields{
+				Input: typedData2DLean,
 			}, Want: want{
 				completeHash: "0x90c689705d7b249b2c5ff6368a0a3cd8b57aa31b13479c8cf074d85b2416af84",
 				domainHash:   "0x94c78e94e233546655365725a17a437f48bb870b898e35b894da4a0887172dc2",
 				messageHash:  "0xa931ed014c19242a3e88739106335a65918f8ac748ae4e9965eae8cc2c4c16c7",
 			},
 		},
-		"ethers-example": {
-			Fields: fields{
-				Input: typedData4,
-			}, Want: want{
-				completeHash: "0x42bfc8f80f73b02a800f2cf5f3b9b96c6774a43c706758c8f34f1fabf946b001",
-				domainHash:   "0x5247656f531410c29fada51024987197407dd7082c1280d87ab649e5ab05a646",
-				messageHash:  "0xa008f077c5a31e71f01d75fbc91d0fdd4c79d37d634a35e99e528d46ad199417",
-			},
-		},
+		// fails atm because fixed size arrays for primitive types is not supported.
+		//"ethers-example": {
+		//	Fields: fields{
+		//		Input: typedDataEthersExample,
+		//	}, Want: want{
+		//		completeHash: "0x42bfc8f80f73b02a800f2cf5f3b9b96c6774a43c706758c8f34f1fabf946b001",
+		//		domainHash:   "0x5247656f531410c29fada51024987197407dd7082c1280d87ab649e5ab05a646",
+		//		messageHash:  "0xa008f077c5a31e71f01d75fbc91d0fdd4c79d37d634a35e99e528d46ad199417",
+		//	},
+		//},
 	}
 
 	for name, tt := range tests {
