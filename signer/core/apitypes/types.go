@@ -616,32 +616,6 @@ func convertDataToSlice(encValue interface{}) ([]interface{}, error) {
 	return outEncValue, nil
 }
 
-// OrderComponents[2][2] returns an []interface{[2]OrderComponents, [2]OrderComponents}
-// OrderComponents[2][3] returns an []interface{[3]OrderComponents, [3]OrderComponents}
-// OrderComponents[3][2] returns an []interface{[2]OrderComponents, [2]OrderComponents, [2]OrderComponents}
-func convertDataToNestedSlice(encValue interface{}) ([]interface{}, error) {
-	var outEncValue []interface{}
-	rv := reflect.ValueOf(encValue)
-	if rv.Kind() == reflect.Slice {
-		for i := 0; i < rv.Len(); i++ {
-			inner := reflect.ValueOf(rv.Index(i))
-			if inner.Kind() != reflect.Slice {
-				res, err := convertDataToNestedSlice(rv.Index(i).Interface())
-				if err != nil {
-					return nil, err
-				}
-				outEncValue = append(outEncValue, res)
-			} else {
-				outEncValue = append(outEncValue, rv.Index(i).Interface())
-			}
-		}
-	}
-	//else {
-	//	return outEncValue, fmt.Errorf("provided data '%v' is not slice", encValue)
-	//}
-	return outEncValue, nil
-}
-
 // validate makes sure the types are sound
 func (typedData *TypedData) validate() error {
 	if err := typedData.Types.validate(); err != nil {
