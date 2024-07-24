@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"math/big"
+	"strings"
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -842,6 +843,95 @@ func TestTypedDataArrayValidate(t *testing.T) {
 		},
 	}
 
+	typedData3 := TypedData{
+		Types: Types{
+			"BulkOrder": []Type{
+				{
+					Name: "tree",
+					Type: "OrderComponents[2][2]",
+				},
+			},
+			"OrderComponents": []Type{
+				{
+					Name: "offerer",
+					Type: "address",
+				},
+			},
+			"EIP712Domain": []Type{
+				{Name: "name", Type: "string"},
+				{Name: "version", Type: "string"},
+				{Name: "chainId", Type: "uint256"},
+				{Name: "verifyingContract", Type: "address"},
+			},
+		},
+		PrimaryType: "BulkOrder",
+		Domain: TypedDataDomain{
+			Name:              "ImmutableSeaport",
+			Version:           "1.5",
+			ChainId:           math.NewHexOrDecimal256(31337),
+			VerifyingContract: "0x3870289A34bba912a05B2c0503F7484dD18d2f6F",
+		},
+		Message: TypedDataMessage{
+			"tree": []interface{}{
+				[]interface{}{
+					map[string]interface{}{
+						"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+					},
+					map[string]interface{}{
+						"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92267",
+					},
+				},
+				[]interface{}{
+					map[string]interface{}{
+						"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92268",
+					},
+					map[string]interface{}{
+						"offerer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92269",
+					},
+				},
+			},
+		},
+	}
+
+	typedData4 := TypedData{
+		Types: Types{
+			"Struct5": []Type{
+				{
+					Name: "param2",
+					Type: "string[3][3]",
+				},
+			},
+			"EIP712Domain": []Type{
+				{Name: "name", Type: "string"},
+				{Name: "chainId", Type: "uint256"},
+			},
+		},
+		PrimaryType: "Struct5",
+		Domain: TypedDataDomain{
+			Name:    "Moo é🚀oM o     MMoéMé🚀MéMéM",
+			ChainId: math.NewHexOrDecimal256(900),
+		},
+		Message: TypedDataMessage{
+			"param2": []interface{}{
+				[]string{
+					"Moo é🚀MMo 🚀🚀MM oéoooéé",
+					"Moo é🚀 éo🚀 🚀oéoMo",
+					"Moo é🚀oééoéM oMé Moéoo oo M MMoééoooo🚀M🚀o🚀oéMo oo é Moo ooo oo🚀 ",
+				},
+				[]string{
+					"Moo é🚀o🚀ooéMMooooMo oo  o🚀 M🚀Mooo oé🚀o🚀oéoM 🚀M oéo🚀 🚀🚀  🚀o🚀   M",
+					"Moo é🚀oéé🚀ooéo ooooM🚀🚀éo🚀🚀🚀ooé🚀 éooM🚀oooooMoo Mo🚀ooooMM 🚀 🚀",
+					"Moo é🚀oo🚀M o🚀oo🚀éoMoooM  oM M🚀ooMM🚀 éo MooMM  éooo",
+				},
+				[]string{
+					"Moo é🚀MMMééo oM o🚀 🚀🚀 Mo o🚀éo🚀oMoé éé oo🚀éé🚀Méoé🚀🚀oéoo 🚀",
+					"Moo é🚀 🚀M",
+					"Moo é🚀oo🚀Mo🚀🚀oMo🚀M🚀 o  MMoo   ééMoé MoMoMMooééoo🚀 éo",
+				},
+			},
+		},
+	}
+
 	type fields struct {
 		Input TypedData
 	}
@@ -856,7 +946,7 @@ func TestTypedDataArrayValidate(t *testing.T) {
 		Fields fields
 		Want   want
 	}{
-		"non-array": {
+		"obmr-non-array": {
 			Fields: fields{
 				Input: typedData0,
 			}, Want: want{
@@ -865,7 +955,7 @@ func TestTypedDataArrayValidate(t *testing.T) {
 				messageHash:  "0x81203a474f76afd1376c9f00b3947b5b7e89a73b13b165f999d540377bb1c2fb", // 0x369514af6e781a85186ef2c059e0d9e7b14e5d58a95970655794439eca7f3f7e
 			},
 		},
-		"single-dimension": {
+		"obmr-single-dimension": {
 			Fields: fields{
 				Input: typedData1,
 			}, Want: want{
@@ -874,13 +964,31 @@ func TestTypedDataArrayValidate(t *testing.T) {
 				messageHash:  "0x449764b1b6c14b5c3d2b69ca5f112e4172feefc49d9712be588862d606d82552", // 0x369514af6e781a85186ef2c059e0d9e7b14e5d58a95970655794439eca7f3f7e
 			},
 		},
-		"two-dimension": {
+		"obmr-two-dimension": {
 			Fields: fields{
 				Input: typedData2,
 			}, Want: want{
 				completeHash: "0x42554635de2cd114d9e36535d7890e93525faa924af52182ae72c069c4909de6",
 				domainHash:   "0x94c78e94e233546655365725a17a437f48bb870b898e35b894da4a0887172dc2",
 				messageHash:  "0x369514af6e781a85186ef2c059e0d9e7b14e5d58a95970655794439eca7f3f7e",
+			},
+		},
+		"obmr-two-dimension-lean": {
+			Fields: fields{
+				Input: typedData3,
+			}, Want: want{
+				completeHash: "0x90c689705d7b249b2c5ff6368a0a3cd8b57aa31b13479c8cf074d85b2416af84",
+				domainHash:   "0x94c78e94e233546655365725a17a437f48bb870b898e35b894da4a0887172dc2",
+				messageHash:  "0xa931ed014c19242a3e88739106335a65918f8ac748ae4e9965eae8cc2c4c16c7",
+			},
+		},
+		"ethers-example": {
+			Fields: fields{
+				Input: typedData4,
+			}, Want: want{
+				completeHash: "0x42bfc8f80f73b02a800f2cf5f3b9b96c6774a43c706758c8f34f1fabf946b001",
+				domainHash:   "0x5247656f531410c29fada51024987197407dd7082c1280d87ab649e5ab05a646",
+				messageHash:  "0xa008f077c5a31e71f01d75fbc91d0fdd4c79d37d634a35e99e528d46ad199417",
 			},
 		},
 	}
@@ -913,7 +1021,7 @@ func TestTypedDataArrayValidate(t *testing.T) {
 				t.Errorf("expected typed data to pass validation, got: %v", err)
 			}
 
-			if name != "non-array" {
+			if strings.Contains(name, "obmr") && !strings.Contains(name, "non-array") {
 				// Should be able to accept dynamic arrays
 				td.Types["BulkOrder"][0].Type = "OrderComponents[]"
 
@@ -937,54 +1045,4 @@ func TestTypedDataArrayValidate(t *testing.T) {
 		})
 
 	}
-
-	//fmt.Printf("%+v\n", typedData2.Domain.Map())
-	//domainSeparator, err := typedData2.HashStruct("EIP712Domain", typedData2.Domain.Map())
-	//
-	//if err != nil {
-	//	t.Fatalf("failed to hash domain separator: %v", err)
-	//}
-	//
-	//messageHash, err := typedData2.HashStruct(typedData2.PrimaryType, typedData2.Message)
-	//
-	//if err != nil {
-	//	t.Fatalf("failed to hash message: %v", err)
-	//}
-	//
-	//// this hash is failing
-	////structredHash := common.Bytes2Hex(crypto.Keccak256(encodePacked([]byte("\x19\x01"), domainSeparator, messageHash)))
-	//structredHash := crypto.Keccak256Hash([]byte(fmt.Sprintf("%s%s%s", "\x19\x01", string(domainSeparator), string(messageHash))))
-	//fmt.Println("domainSeparator hash: ", domainSeparator.String())
-	//fmt.Println("messageHash hash: ", messageHash.String())
-	//fmt.Println("structured hash: ", structredHash)
-	//
-	//if err := typedData2.validate(); err != nil {
-	//	t.Errorf("expected typed data to pass validation, got: %v", err)
-	//}
-	//
-	//// Should be able to accept dynamic arrays
-	//typedData2.Types["BulkOrder"][0].Type = "OrderComponents[]"
-	//
-	//if err := typedData2.validate(); err != nil {
-	//	t.Errorf("expected typed data to pass validation, got: %v", err)
-	//}
-	//
-	//// Should be able to accept standard types
-	//typedData2.Types["BulkOrder"][0].Type = "OrderComponents"
-	//
-	//if err := typedData2.validate(); err != nil {
-	//	t.Errorf("expected typed data to pass validation, got: %v", err)
-	//}
-	//
-	//// Should fail on a bad reference
-	//typedData2.Types["BulkOrder"][0].Type = "OrderComponent"
-	//
-	//if err := typedData2.validate(); err == nil {
-	//	t.Errorf("expected typed data to fail validation, got nil")
-	//}
-
-}
-
-func encodePacked(input ...[]byte) []byte {
-	return bytes.Join(input, nil)
 }

@@ -371,9 +371,11 @@ func (typedData *TypedData) EncodeData(primaryType string, data map[string]inter
 		encType := field.Type
 		encValue := data[field.Name]
 		if encType[len(encType)-1:] == "]" {
-			if err := typedData.encodeArrayType(encValue, encType, depth, &buffer); err != nil {
+			b, err := typedData.encodeArrayType(encValue, encType, depth)
+			if err != nil {
 				return nil, err
 			}
+			buffer.Write(b)
 		} else if typedData.Types[field.Type] != nil {
 			mapValue, ok := encValue.(map[string]interface{})
 			if !ok {
@@ -386,9 +388,8 @@ func (typedData *TypedData) EncodeData(primaryType string, data map[string]inter
 			//marshalled, _ := encodedData.MarshalText()
 			//fmt.Printf("%v marshalled : %v \n", encType, string(marshalled))
 			combined := crypto.Keccak256(encodedData)
-			fmt.Printf("%v combined : %v \n", encType, hex.EncodeToString(combined))
+			//fmt.Printf("%v combined : %v \n", encType, hex.EncodeToString(combined))
 			buffer.Write(combined)
-			buffer.Write(crypto.Keccak256(encodedData))
 		} else {
 			byteValue, err := typedData.EncodePrimitiveValue(encType, encValue, depth)
 			if err != nil {
@@ -402,28 +403,29 @@ func (typedData *TypedData) EncodeData(primaryType string, data map[string]inter
 	return res, nil
 }
 
-func (typedData *TypedData) encodeArrayType(encValue interface{}, encType string, depth int, buffer *bytes.Buffer) error {
+func (typedData *TypedData) encodeArrayType(encValue interface{}, encType string, depth int) (hexutil.Bytes, error) {
 	arrayValue, err := convertDataToSlice(encValue)
 	if err != nil {
-		return dataMismatchError(encType, encValue)
+		return nil, dataMismatchError(encType, encValue)
 	}
-
 	arrayBuffer := bytes.Buffer{}
 	parsedType := strings.Split(encType, "[")[0]
 	for _, item := range arrayValue {
 		if reflect.TypeOf(item).Kind() == reflect.Slice {
-			if err := typedData.encodeArrayType(item, parsedType, depth+1, buffer); err != nil {
-				return err
+			b, err := typedData.encodeArrayType(item, parsedType, depth+1)
+			if err != nil {
+				return nil, err
 			}
+			arrayBuffer.Write(b)
 		} else {
 			if typedData.Types[parsedType] != nil {
 				mapValue, ok := item.(map[string]interface{})
 				if !ok {
-					return dataMismatchError(parsedType, item)
+					return nil, dataMismatchError(parsedType, item)
 				}
 				encodedData, err := typedData.EncodeData(parsedType, mapValue, depth+1)
 				if err != nil {
-					return err
+					return nil, err
 				}
 				digest := crypto.Keccak256(encodedData)
 				arrayBuffer.Write(digest)
@@ -433,7 +435,7 @@ func (typedData *TypedData) encodeArrayType(encValue interface{}, encType string
 			} else {
 				bytesValue, err := typedData.EncodePrimitiveValue(parsedType, item, depth)
 				if err != nil {
-					return err
+					return nil, err
 				}
 				arrayBuffer.Write(bytesValue)
 			}
@@ -441,8 +443,7 @@ func (typedData *TypedData) encodeArrayType(encValue interface{}, encType string
 	}
 	combined := crypto.Keccak256(arrayBuffer.Bytes())
 	fmt.Printf("%v writing array contents to main buffer : %v \n", parsedType, hex.EncodeToString(combined))
-	buffer.Write(combined)
-	return nil
+	return combined, nil
 }
 
 // Attempt to parse bytes in different formats: byte array, hex string, hexutil.Bytes.
@@ -612,6 +613,32 @@ func convertDataToSlice(encValue interface{}) ([]interface{}, error) {
 	} else {
 		return outEncValue, fmt.Errorf("provided data '%v' is not slice", encValue)
 	}
+	return outEncValue, nil
+}
+
+// OrderComponents[2][2] returns an []interface{[2]OrderComponents, [2]OrderComponents}
+// OrderComponents[2][3] returns an []interface{[3]OrderComponents, [3]OrderComponents}
+// OrderComponents[3][2] returns an []interface{[2]OrderComponents, [2]OrderComponents, [2]OrderComponents}
+func convertDataToNestedSlice(encValue interface{}) ([]interface{}, error) {
+	var outEncValue []interface{}
+	rv := reflect.ValueOf(encValue)
+	if rv.Kind() == reflect.Slice {
+		for i := 0; i < rv.Len(); i++ {
+			inner := reflect.ValueOf(rv.Index(i))
+			if inner.Kind() != reflect.Slice {
+				res, err := convertDataToNestedSlice(rv.Index(i).Interface())
+				if err != nil {
+					return nil, err
+				}
+				outEncValue = append(outEncValue, res)
+			} else {
+				outEncValue = append(outEncValue, rv.Index(i).Interface())
+			}
+		}
+	}
+	//else {
+	//	return outEncValue, fmt.Errorf("provided data '%v' is not slice", encValue)
+	//}
 	return outEncValue, nil
 }
 
